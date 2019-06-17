@@ -1,32 +1,24 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) 
-// Source File Name:   AdminService.java
-
 package com.test.spring;
 
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-// Referenced classes of package com.test.spring:
-//            IAdminService, AdminDAO, MenuDTO
-
+@Service
 public class AdminService
-    implements IAdminService
+  implements IAdminService
 {
 
-    public AdminService()
-    {
-    }
+  @Autowired
+  private AdminDAO dao;
 
-    public List sellList()
-    {
-        return dao.sellList();
-    }
+  public List<MemberOrderDTO> sellList()
+  {
+    return this.dao.sellList();
+  }
 
-    public int addproductok(MenuDTO dto)
-    {
-        return dao.addproductok(dto);
-    }
-
-    private AdminDAO dao;
+  public int addproductok(MenuDTO dto)
+  {
+    return this.dao.addproductok(dto);
+  }
 }

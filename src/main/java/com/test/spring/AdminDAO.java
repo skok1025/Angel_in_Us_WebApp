@@ -1,32 +1,23 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) 
-// Source File Name:   AdminDAO.java
-
 package com.test.spring;
 
 import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-// Referenced classes of package com.test.spring:
-//            MenuDTO
-
+@Repository
 public class AdminDAO
 {
 
-    public AdminDAO()
-    {
-    }
+  @Autowired
+  private SqlSessionTemplate template;
 
-    public List sellList()
-    {
-        return template.selectList("cafe.sellList");
-    }
+  public List<MemberOrderDTO> sellList()
+  {
+    return this.template.selectList("cafe.sellList");
+  }
 
-    public int addproductok(MenuDTO dto)
-    {
-        return template.insert("cafe.addproductok", dto);
-    }
-
-    private SqlSessionTemplate template;
+  public int addproductok(MenuDTO dto) {
+    return this.template.insert("cafe.addproductok", dto);
+  }
 }

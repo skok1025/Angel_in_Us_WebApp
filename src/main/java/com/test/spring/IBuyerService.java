@@ -2,34 +2,35 @@ package com.test.spring;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public interface IBuyerService {
+public interface IBuyerService
+{
+  public int loginok(MemberDTO paramMemberDTO);
 
-	List getOrderList(String string);
+  public List<MenuDTO> menulist(int paramInt);
 
-	
-	String getTotalPrice(String string);
+  public MenuDTO getMenu(String paramString);
 
-	int delorder(String orderseq);
+  public List<OptionDTO> getOptions();
 
-	Object getMemberseq(MemberDTO dto);
+  public int gettotal(Map<String, String> paramHashMap);
 
-	int loginok(MemberDTO dto);
+  public int addcart(OrderDTO paramOrderDTO);
 
-	List menulist(int i);
+  public String getMemberseq(MemberDTO paramMemberDTO);
 
-	MenuDTO getMenu(String menuseq);
+  public String getOrderSeq();
 
-	int gettotal(HashMap map);
+  public void addoption(Map<String, String> paramHashMap);
 
-	int addcart(OrderDTO dto);
+  public List<OrderDTO> getOrderList(String paramString);
 
-	String getOrderSeq();
+  public List<OptionDTO> getOptionList();
 
-	void addoption(HashMap map);
+  public  String getTotalPrice(String paramString);
 
-	int pay(String string);
+  public int pay(String paramString);
 
-	List getOptionList();
-
+  public int delorder(String paramString);
 }

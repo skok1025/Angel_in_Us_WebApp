@@ -1,94 +1,75 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) 
-// Source File Name:   BuyerDAO.java
-
 package com.test.spring;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.mybatis.spring.SqlSessionTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-// Referenced classes of package com.test.spring:
-//            MenuDTO, MemberDTO, OrderDTO
-
+@Repository
 public class BuyerDAO
 {
 
-    public BuyerDAO()
-    {
-    }
+  @Autowired
+  private SqlSessionTemplate template;
 
-    public int loginok(MemberDTO dto)
-    {
-        return ((Integer)template.selectOne("cafe.loginok", dto)).intValue();
-    }
+  public int loginok(MemberDTO dto)
+  {
+    return ((Integer)this.template.selectOne("cafe.loginok", dto)).intValue();
+  }
 
-    public List menulist(int iscoffee)
-    {
-        return template.selectList("cafe.menulist", Integer.valueOf(iscoffee));
-    }
+  public List<MenuDTO> menulist(int iscoffee) {
+    return this.template.selectList("cafe.menulist", Integer.valueOf(iscoffee));
+  }
 
-    public MenuDTO getMenu(String menuseq)
-    {
-        return (MenuDTO)template.selectOne("cafe.getMenu", menuseq);
-    }
+  public MenuDTO getMenu(String menuseq) {
+    return (MenuDTO)this.template.selectOne("cafe.getMenu", menuseq);
+  }
 
-    public List getOptions()
-    {
-        return template.selectList("cafe.getOptions");
-    }
+  public List<OptionDTO> getOptions() {
+    return this.template.selectList("cafe.getOptions");
+  }
 
-    public int gettotal(HashMap map)
-    {
-        return ((Integer)template.selectOne("cafe.getsizeprice", map)).intValue();
-    }
+  public int gettotal(Map<String, String> map) {
+    return ((Integer)this.template.selectOne("cafe.getsizeprice", map)).intValue();
+  }
 
-    public int addcart(OrderDTO dto)
-    {
-        return template.insert("cafe.addorder", dto);
-    }
+  public int addcart(OrderDTO dto) {
+    return this.template.insert("cafe.addorder", dto);
+  }
 
-    public String getMemberseq(MemberDTO dto)
-    {
-        return (String)template.selectOne("cafe.getMemberseq", dto);
-    }
+  public String getMemberseq(MemberDTO dto) {
+    return (String)this.template.selectOne("cafe.getMemberseq", dto);
+  }
 
-    public String getOrderSeq()
-    {
-        return (String)template.selectOne("cafe.getOrderSeq");
-    }
+  public String getOrderSeq() {
+    return (String)this.template.selectOne("cafe.getOrderSeq");
+  }
 
-    public void addoption(HashMap map)
-    {
-        template.insert("cafe.addoption", map);
-    }
+  public void addoption(Map<String, String> map) {
+    this.template.insert("cafe.addoption", map);
+  }
 
-    public List getOrderList(String memberseq)
-    {
-        return template.selectList("cafe.orderlist", memberseq);
-    }
+  public List<OrderDTO> getOrderList(String memberseq) {
+    return this.template.selectList("cafe.orderlist", memberseq);
+  }
 
-    public List getOptionList()
-    {
-        return template.selectList("cafe.getOptionList");
-    }
+  public List<OptionDTO> getOptionList() {
+    return this.template.selectList("cafe.getOptionList");
+  }
 
-    public String getTotalPrice(String memberseq)
-    {
-        return (String)template.selectOne("cafe.totalprice", memberseq);
-    }
+  public String getTotalPrice(String memberseq) {
+    return (String)this.template.selectOne("cafe.totalprice", memberseq);
+  }
 
-    public int pay(String memberseq)
-    {
-        return template.update("cafe.pay", memberseq);
-    }
+  public int pay(String memberseq) {
+    return this.template.update("cafe.pay", memberseq);
+  }
 
-    public int delorder(String orderseq)
-    {
-        template.delete("cafe.delorderoption", orderseq);
-        return template.delete("cafe.delorder", orderseq);
-    }
-
-    private SqlSessionTemplate template;
+  public int delorder(String orderseq) {
+    this.template.delete("cafe.delorderoption", orderseq);
+    return this.template.delete("cafe.delorder", orderseq);
+  }
 }

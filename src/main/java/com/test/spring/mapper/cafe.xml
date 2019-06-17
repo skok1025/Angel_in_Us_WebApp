@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0/EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+mapper : MyBatis에서 사용하는 모든 SQL 을 작성하는 파일
+-->
+<mapper namespace="cafe">
+
+	<select id="loginok" parameterType="memberdto" resultType="Integer">
+		select count(*) as cnt from tblmember where id=#{id} and pw=#{pw}
+	</select>
+	
+	<select id="getMemberseq" parameterType="memberdto" resultType="string">
+		select seq from tblmember where id=#{id}
+	</select>
+	
+	<select id="menulist" parameterType="Integer" resultType="menudto">
+		select * from tblmenu where iscoffee = #{iscoffee}
+	</select>
+	<select id="getMenu" parameterType="string" resultType="menudto">
+		select * from tblmenu where seq = #{menuseq}
+	</select>
+	<select id="getOptions" resultType="optiondto">
+		select * from tbloption 
+	</select>
+	<select id="getsizeprice" parameterType="map" resultType="integer">
+		select price from tblmenusizeprice where menusize =#{menusize} and menuseq=#{menuseq}
+	</select>
+	
+	<insert id="addorder" parameterType="orderdto">
+		insert into tblorder values(order_seq.nextval,#{memberseq},#{menuseq},0,sysdate,null,#{count},#{menusize},#{payment})
+	</insert>
+	
+	<select id="orderlist" parameterType="string" resultType="orderdto">
+		select * from vworder where memberseq = #{memberseq} and ispay = 0
+	</select>
+	<select id="getOptionList" resultType="optiondto">
+		select * from vwoption
+	</select>
+	
+	<select id="totalprice" parameterType="string" resultType="integer">
+		select sum(payment) from tblorder where memberseq=#{memberseq} and ispay = 0
+	</select>
+	
+	<delete id="delorderoption" parameterType="string">
+		delete from tblorderoption where orderseq = #{orderseq}
+	</delete>
+	
+	<delete id="delorder" parameterType="string">
+		delete from tblorder where seq = #{orderseq}
+	</delete>
+	
+	<update id="pay" parameterType="string">
+		update tblorder set paydate = sysdate, ispay =1 where memberseq=#{memberseq}
+	</update>
+	
+	<select id="getOrderSeq" resultType="string">
+		select max(seq) from tblorder
+	</select>
+	
+	<insert id="addoption" parameterType="map">
+		insert into tblorderoption values(orderoption_seq.nextval,#{orderseq},#{optionseq})
+	</insert>
+	
+</mapper>

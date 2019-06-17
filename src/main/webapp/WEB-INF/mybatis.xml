@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0/EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	
+	<!-- 자주 사용하는 타입의 별칭 -->	
+	<typeAliases>
+		<typeAlias type="com.test.spring.HeartDTO" alias="heartdto"/>
+		<typeAlias type="com.test.spring.MemberDTO" alias="memberdto"/>
+		<typeAlias type="com.test.spring.MemberOrderDTO" alias="memberorderdto"/>
+		<typeAlias type="com.test.spring.MenuDTO" alias="menudto"/>
+		<typeAlias type="com.test.spring.MenuSizePriceDTO" alias="menusizepricedto"/>
+		<typeAlias type="com.test.spring.OrderDTO" alias="orderdto"/>
+		<typeAlias type="com.test.spring.OptionDTO" alias="optiondto"/>
+		<typeAlias type="com.test.spring.OrderOptionDTO" alias="orderoptiondto"/>
+ 
+	</typeAliases>
+	
+	
+	
+</configuration>

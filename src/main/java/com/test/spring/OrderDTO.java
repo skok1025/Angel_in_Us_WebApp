@@ -53,17 +53,17 @@ public class OrderDTO
         this.count = count;
     }
 
-    public int getPayment()
-    {
-        return payment;
-    }
+ 
 
-    public void setPayment(int payment)
-    {
-        this.payment = payment;
-    }
+    public String getPayment() {
+		return payment;
+	}
 
-    public String getSeq()
+	public void setPayment(String payment) {
+		this.payment = payment;
+	}
+
+	public String getSeq()
     {
         return seq;
     }
@@ -136,7 +136,7 @@ public class OrderDTO
     private String paydate;
     private String menusize;
     private int count;
-    private int payment;
+    private String payment;
     private String menu;
     private String image;
 }

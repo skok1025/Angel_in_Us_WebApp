@@ -1,169 +1,171 @@
-// Decompiled by Jad v1.5.8g. Copyright 2001 Pavel Kouznetsov.
-// Jad home page: http://www.kpdus.com/jad.html
-// Decompiler options: packimports(3) 
-// Source File Name:   BuyerController.java
-
 package com.test.spring;
 
 import java.io.File;
-import java.io.PrintStream;
 import java.util.HashMap;
 import java.util.List;
-import javax.servlet.http.*;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-// Referenced classes of package com.test.spring:
-//            IBuyerService, OrderDTO, IAdminService, MenuDTO, 
-//            MemberDTO
 
 @Controller
 public class BuyerController
 {
 
-    public BuyerController()
-    {
-    }
-    @RequestMapping("/login.action")
-    public String login(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
-    {
-        System.out.println(req.getRealPath("/files"));
-        return "login";
-    }
+  @Autowired
+  private IBuyerService service;
 
-    public int logincheck(HttpServletRequest req, HttpServletResponse resp, HttpSession session, MemberDTO dto)
-    {
-        session.setAttribute("memberseq", service.getMemberseq(dto));
-        return service.loginok(dto);
-    }
+  @Autowired
+  private IAdminService adservice;
 
-    public String index(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
-    {
-        List list = service.menulist(1);
-        req.setAttribute("list", list);
-        return "index";
-    }
+  @RequestMapping(value={"/login.action"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  public String login(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
+  {
+    System.out.println(req.getRealPath("/files"));
+    return "login";
+  }
 
-    public List getmenulist(HttpServletRequest req, HttpServletResponse resp, HttpSession session, int iscoffee)
-    {
-        return service.menulist(iscoffee);
-    }
+  @RequestMapping(value={"/logincheck.action"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  @ResponseBody
+  public int logincheck(HttpServletRequest req, HttpServletResponse resp, HttpSession session, MemberDTO dto) {
+    session.setAttribute("memberseq", this.service.getMemberseq(dto));
 
-    public String view(HttpServletRequest req, HttpServletResponse resp, HttpSession session, String menuseq)
-    {
-        MenuDTO dto = service.getMenu(menuseq);
-        List options = service.getOptionList();
-        req.setAttribute("dto", dto);
-        req.setAttribute("options", options);
-        return "view";
-    }
+    return this.service.loginok(dto);
+  }
 
-    public int gettotal(HttpServletRequest req, HttpServletResponse resp, HttpSession session, String menusize, int count, String menuseq)
-    {
-        HashMap map = new HashMap();
-        map.put("menusize", menusize);
-        map.put("menuseq", menuseq);
-        return count * service.gettotal(map);
-    }
+  @RequestMapping(value={"/index.action"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  public String index(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
+  {
+    List list = this.service.menulist(1);
 
-    public int addcart(HttpServletRequest req, HttpServletResponse resp, HttpSession session, OrderDTO dto)
-    {
-        String optionArr[] = req.getParameterValues("option");
-        System.out.println(session.getAttribute("memberseq").toString());
-        dto.setMemberseq(session.getAttribute("memberseq").toString());
-        int result = service.addcart(dto);
-        String orderseq = service.getOrderSeq();
-        HashMap map = new HashMap();
-        String as[];
-        int j = (as = optionArr).length;
-        for(int i = 0; i < j; i++)
-        {
-            String optionseq = as[i];
-            map.put("orderseq", orderseq);
-            map.put("optionseq", optionseq);
-            service.addoption(map);
-        }
+    req.setAttribute("list", list);
+    return "index";
+  }
+  @RequestMapping(value={"/getmenulist.action"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  @ResponseBody
+  public List<MenuDTO> getmenulist(HttpServletRequest req, HttpServletResponse resp, HttpSession session, int iscoffee) {
+    return this.service.menulist(iscoffee);
+  }
 
-        return result;
-    }
+  @RequestMapping(value={"/view.action"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  public String view(HttpServletRequest req, HttpServletResponse resp, HttpSession session, String menuseq) {
+    MenuDTO dto = this.service.getMenu(menuseq);
+    List options = this.service.getOptions();
 
-    public String cart(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
-    {
-        List orderlist = service.getOrderList(session.getAttribute("memberseq").toString());
-        List optionlist = service.getOptionList();
-        String totalprice = service.getTotalPrice(session.getAttribute("memberseq").toString());
-        req.setAttribute("orderlist", orderlist);
-        req.setAttribute("optionlist", optionlist);
-        req.setAttribute("totalprice", totalprice);
-        return "cart";
+    req.setAttribute("dto", dto);
+    req.setAttribute("options", options);
+    return "view";
+  }
+  @RequestMapping(value={"/gettotal.action"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  @ResponseBody
+  public int gettotal(HttpServletRequest req, HttpServletResponse resp, HttpSession session, String menusize, int count, String menuseq) {
+    Map<String, String> map = new HashMap<String,String>();
+    map.put("menusize", menusize);
+    map.put("menuseq", menuseq);
+    return count * service.gettotal(map);
+  }
+  @RequestMapping(value={"/addcart.action"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  @ResponseBody
+  public int addcart(HttpServletRequest req, HttpServletResponse resp, HttpSession session, OrderDTO dto) { String[] optionArr = req.getParameterValues("option");
+  	System.out.println("payment:"+dto.getPayment());
+    System.out.println(session.getAttribute("memberseq").toString());
+    dto.setMemberseq(session.getAttribute("memberseq").toString());
+    int result = this.service.addcart(dto);
+
+    String orderseq = this.service.getOrderSeq();
+
+    Map<String,String> map = new HashMap<String,String>();
+
+    for (String optionseq : optionArr) {
+      map.put("orderseq", orderseq);
+      map.put("optionseq", optionseq);
+      this.service.addoption(map);
     }
 
-    public int pay(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
+    return result;
+  }
+
+  @RequestMapping(value={"/cart.action"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  public String cart(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
+  {
+    List orderlist = this.service.getOrderList(session.getAttribute("memberseq").toString());
+    List optionlist = this.service.getOptionList();
+
+    String totalprice = this.service.getTotalPrice(session.getAttribute("memberseq").toString());
+    req.setAttribute("orderlist", orderlist);
+    req.setAttribute("optionlist", optionlist);
+    req.setAttribute("totalprice", totalprice);
+    return "cart";
+  }
+  @RequestMapping(value={"/pay.action"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  @ResponseBody
+  public int pay(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+    int result = this.service.pay(session.getAttribute("memberseq").toString());
+    return result;
+  }
+  @RequestMapping(value={"/delorder.action"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  @ResponseBody
+  public int delorder(HttpServletRequest req, HttpServletResponse resp, HttpSession session, String orderseq) {
+    return this.service.delorder(orderseq);
+  }
+
+  @RequestMapping(value={"/admin.action"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  public String admin(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
+  {
+    return "admin";
+  }
+
+  @RequestMapping(value={"/sellList.action"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  public String sellList(HttpServletRequest req, HttpServletResponse resp, HttpSession session) {
+    List list = this.adservice.sellList();
+    req.setAttribute("list", list);
+    return "sellList";
+  }
+
+  @RequestMapping(value={"/addproduct.action"}, method={org.springframework.web.bind.annotation.RequestMethod.GET})
+  public String addproduct(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
+  {
+    return "addproduct";
+  }
+  @RequestMapping(value={"/addproductok.action"}, method={org.springframework.web.bind.annotation.RequestMethod.POST})
+  @ResponseBody
+  public int addproductok(HttpServletRequest req, HttpServletResponse resp, HttpSession session, MenuDTO dto) {
+    MultipartHttpServletRequest multi = (MultipartHttpServletRequest)req;
+    MultipartFile attach = multi.getFile("attach");
+    String filename = getFileName(req.getRealPath("/files"), attach.getOriginalFilename());
+    File filepath = new File(req.getRealPath("/files") + "\\" + filename);
+    try
     {
-        int result = service.pay(session.getAttribute("memberseq").toString());
-        return result;
+      attach.transferTo(filepath);
+    } catch (Exception e) {
+      e.printStackTrace();
     }
 
-    public int delorder(HttpServletRequest req, HttpServletResponse resp, HttpSession session, String orderseq)
-    {
-        return service.delorder(orderseq);
-    }
+    dto.setImage(filename);
 
-    public String admin(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
-    {
-        return "admin";
-    }
+    int result = this.adservice.addproductok(dto);
 
-    public String sellList(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
-    {
-        List list = adservice.sellList();
-        req.setAttribute("list", list);
-        return "sellList";
-    }
+    return result;
+  }
+  private String getFileName(String path, String filename) {
+    int n = 1;
+    int index = filename.indexOf(".");
+    String tempfilename = filename.substring(0, index);
+    String tempExt = filename.substring(index);
+    File file;
+    while (true) { file = new File(path + "\\" + filename);
 
-    public String addproduct(HttpServletRequest req, HttpServletResponse resp, HttpSession session)
-    {
-        return "addproduct";
+      if (!file.exists()) break;
+      filename = tempfilename + "(" + n + ")" + tempExt;
     }
-
-    public int addproductok(HttpServletRequest req, HttpServletResponse resp, HttpSession session, MenuDTO dto)
-    {
-        MultipartHttpServletRequest multi = (MultipartHttpServletRequest)req;
-        MultipartFile attach = multi.getFile("attach");
-        String filename = getFileName(req.getRealPath("/files"), attach.getOriginalFilename());
-        File filepath = new File((new StringBuilder(String.valueOf(req.getRealPath("/files")))).append("\\").append(filename).toString());
-        try
-        {
-            attach.transferTo(filepath);
-        }
-        catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-        dto.setImage(filename);
-        int result = adservice.addproductok(dto);
-        return result;
-    }
-
-    private String getFileName(String path, String filename)
-    {
-        int n = 1;
-        int index = filename.indexOf(".");
-        String tempfilename = filename.substring(0, index);
-        String tempExt = filename.substring(index);
-        do
-        {
-            File file = new File((new StringBuilder(String.valueOf(path))).append("\\").append(filename).toString());
-            if(file.exists())
-                filename = (new StringBuilder(String.valueOf(tempfilename))).append("(").append(n).append(")").append(tempExt).toString();
-            else
-                return file.getName();
-        } while(true);
-    }
-
-    private IBuyerService service;
-    private IAdminService adservice;
+    return file.getName();
+  }
 }
