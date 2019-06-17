@@ -50,7 +50,7 @@
 		<div role="main" class = "ui-content">
 			<h2>엔젤리너스 로그인</h2>
 			
-			<img alt="로고" src="/spring/resources/img/main.jpg" style="width: 150px; margin-left: 80px;">
+			<img alt="로고" src="/spring/resources/img/anjel.png" style="width: 150px; margin-left: 80px;">
 			
 			<form id="loginform" action="/spring/loginok.action" method="post">
 				<ul data-role="listview" data-inset="true">

@@ -131,8 +131,9 @@
 		<dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
-			<version>1.4</version>
+			<version>1.2.2</version>
 		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/org.lazyluke/log4jdbc-remix -->
 		<dependency>
@@ -148,7 +149,15 @@
 			<version>2.0.6</version>
 		</dependency>
 
-	
+		<!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+			<version>1.4</version>
+		</dependency>
+
+
+
 	</dependencies>
 	<build>
 		<plugins>
