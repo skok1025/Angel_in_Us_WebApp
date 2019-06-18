@@ -134,7 +134,7 @@
 	<fieldset data-role="controlgroup">
         <legend>Option:</legend>
 		<c:forEach items="${options}" var="odto">
-        <input type="checkbox" value="${odto.seq}" name="option" id="${odto.optionname }">
+        <input type="checkbox" value="${odto.seq}" name="option" id="${odto.optionname }" >
         <label for="${odto.optionname }">${odto.optionname }</label>
 		</c:forEach>        
 
@@ -142,7 +142,7 @@
 
 	<div>
 	 총 금액: 
-		<span id="total">7600</span>원
+		<span id="total"></span>원
 		<input id="totalprice" name="payment" type="hidden" />
 	</div>
 	<input type="hidden" name="menuseq" value="${dto.seq}" />

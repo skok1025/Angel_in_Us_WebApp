@@ -1,6 +1,8 @@
-package com.test.spring;
+package com.test.spring.service;
 
 import java.util.List;
+
+import com.test.spring.dto.MenuDTO;
 
 public interface IAdminService {
 

@@ -3,7 +3,7 @@
 // Decompiler options: packimports(3) 
 // Source File Name:   OrderDTO.java
 
-package com.test.spring;
+package com.test.spring.dto;
 
 
 public class OrderDTO

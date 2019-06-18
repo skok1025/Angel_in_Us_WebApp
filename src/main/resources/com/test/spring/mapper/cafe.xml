@@ -40,7 +40,7 @@ mapper : MyBatis에서 사용하는 모든 SQL 을 작성하는 파일
 		select * from vwoption
 	</select>
 	
-	<select id="totalprice" parameterType="string" resultType="integer">
+	<select id="totalprice" parameterType="string" resultType="string">
 		select sum(payment) from tblorder where memberseq=#{memberseq} and ispay = 0
 	</select>
 	

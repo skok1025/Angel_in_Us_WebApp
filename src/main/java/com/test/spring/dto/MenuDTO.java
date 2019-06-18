@@ -3,7 +3,7 @@
 // Decompiler options: packimports(3) 
 // Source File Name:   MenuDTO.java
 
-package com.test.spring;
+package com.test.spring.dto;
 
 
 public class MenuDTO

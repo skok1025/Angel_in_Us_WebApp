@@ -7,14 +7,14 @@
 	
 	<!-- 자주 사용하는 타입의 별칭 -->	
 	<typeAliases>
-		<typeAlias type="com.test.spring.HeartDTO" alias="heartdto"/>
-		<typeAlias type="com.test.spring.MemberDTO" alias="memberdto"/>
-		<typeAlias type="com.test.spring.MemberOrderDTO" alias="memberorderdto"/>
-		<typeAlias type="com.test.spring.MenuDTO" alias="menudto"/>
-		<typeAlias type="com.test.spring.MenuSizePriceDTO" alias="menusizepricedto"/>
-		<typeAlias type="com.test.spring.OrderDTO" alias="orderdto"/>
-		<typeAlias type="com.test.spring.OptionDTO" alias="optiondto"/>
-		<typeAlias type="com.test.spring.OrderOptionDTO" alias="orderoptiondto"/>
+		<typeAlias type="com.test.spring.dto.HeartDTO" alias="heartdto"/>
+		<typeAlias type="com.test.spring.dto.MemberDTO" alias="memberdto"/>
+		<typeAlias type="com.test.spring.dto.MemberOrderDTO" alias="memberorderdto"/>
+		<typeAlias type="com.test.spring.dto.MenuDTO" alias="menudto"/>
+		<typeAlias type="com.test.spring.dto.MenuSizePriceDTO" alias="menusizepricedto"/>
+		<typeAlias type="com.test.spring.dto.OrderDTO" alias="orderdto"/>
+		<typeAlias type="com.test.spring.dto.OptionDTO" alias="optiondto"/>
+		<typeAlias type="com.test.spring.dto.OrderOptionDTO" alias="orderoptiondto"/>
  
 	</typeAliases>
 	

@@ -1,9 +1,12 @@
-package com.test.spring;
+package com.test.spring.dao;
 
 import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.test.spring.dto.MemberOrderDTO;
+import com.test.spring.dto.MenuDTO;
 
 @Repository
 public class AdminDAO

@@ -1,8 +1,12 @@
-package com.test.spring;
+package com.test.spring.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.test.spring.dao.AdminDAO;
+import com.test.spring.dto.MemberOrderDTO;
+import com.test.spring.dto.MenuDTO;
 
 @Service
 public class AdminService

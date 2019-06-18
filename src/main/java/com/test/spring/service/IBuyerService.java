@@ -1,8 +1,13 @@
-package com.test.spring;
+package com.test.spring.service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.test.spring.dto.MemberDTO;
+import com.test.spring.dto.MenuDTO;
+import com.test.spring.dto.OptionDTO;
+import com.test.spring.dto.OrderDTO;
 
 public interface IBuyerService
 {

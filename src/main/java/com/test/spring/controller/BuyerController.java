@@ -1,4 +1,4 @@
-package com.test.spring;
+package com.test.spring.controller;
 
 import java.io.File;
 import java.util.HashMap;
@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+
+import com.test.spring.dto.MemberDTO;
+import com.test.spring.dto.MenuDTO;
+import com.test.spring.dto.OrderDTO;
+import com.test.spring.service.IAdminService;
+import com.test.spring.service.IBuyerService;
 
 @Controller
 public class BuyerController

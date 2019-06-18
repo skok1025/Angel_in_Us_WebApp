@@ -1,4 +1,4 @@
-package com.test.spring;
+package com.test.spring.dao;
 
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +7,11 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.test.spring.dto.MemberDTO;
+import com.test.spring.dto.MenuDTO;
+import com.test.spring.dto.OptionDTO;
+import com.test.spring.dto.OrderDTO;
 
 @Repository
 public class BuyerDAO

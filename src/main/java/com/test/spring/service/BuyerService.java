@@ -1,4 +1,4 @@
-package com.test.spring;
+package com.test.spring.service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -6,6 +6,12 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.test.spring.dao.BuyerDAO;
+import com.test.spring.dto.MemberDTO;
+import com.test.spring.dto.MenuDTO;
+import com.test.spring.dto.OptionDTO;
+import com.test.spring.dto.OrderDTO;
 
 @Service
 public class BuyerService implements IBuyerService
